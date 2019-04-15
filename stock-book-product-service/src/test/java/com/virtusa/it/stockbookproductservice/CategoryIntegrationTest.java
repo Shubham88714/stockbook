@@ -1,4 +1,4 @@
-package com.virtusa.it.stockbookproductservice.category;
+package com.virtusa.it.stockbookproductservice;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -183,6 +183,8 @@ public class CategoryIntegrationTest {
 
 	}
 
+	
+	//--not done--exception is not getting raised
 	@Test // negative test
 	public void deleteCategoryAssociatedWithProduct() throws  Exception {
 		Category pCategory = new Category("pCategory");

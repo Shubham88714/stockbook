@@ -3,6 +3,8 @@ package com.virtusa.stockbookproductservice.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.virtusa.stockbookproductservice.domain.Category;
 import com.virtusa.stockbookproductservice.domain.Product;
 import com.virtusa.stockbookproductservice.exception.ProductNameAlreadyExistException;
+import com.virtusa.stockbookproductservice.exception.ProductNotFoundException;
 import com.virtusa.stockbookproductservice.repository.ICategoryRepository;
 import com.virtusa.stockbookproductservice.repository.IProductRepository;
 
@@ -22,7 +25,7 @@ public class ProductService {
 	@Autowired
 	ICategoryRepository categoryRespositoty;
 
-	// save the product
+	// save the product --done 
 	public Product saveProduct(Product product) {
 		
 		
@@ -47,23 +50,27 @@ public class ProductService {
 	//	return productRepository.save(product);
 	}
 
-	// get product by id
+	// get product by id --done
 	public Product getProductById(Long id) {
-		Product theProduct = null;
 		Optional<Product> optProduct = productRepository.findById(id);
 		if (optProduct.isPresent()) {
-			theProduct = optProduct.get();
+			return  optProduct.get();
 		}
-		return theProduct;
+		else 
+			throw new ProductNotFoundException("Product not found!!");
+		
 	}
 
-	// get list of products
+	// get list of products --done
+	@Transactional
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 
+	//update Product by id
+	@Transactional
 	public Product updateProductById(Long id, Product product) {
-
+		
 		Product theProduct = null;
 		Optional<Product> optProduct = productRepository.findById(id);
 
@@ -72,22 +79,23 @@ public class ProductService {
 			System.out.println(theProduct.getCategory().getName());
 			theProduct.setName(product.getName());
 			theProduct.setDescription(product.getDescription());
-			
-			productRepository.save(theProduct);
+			theProduct.setCategory(product.getCategory());
+			System.out.println(theProduct.getCategory().getName());
+			return productRepository.save(theProduct);
 		}
-
-		return theProduct;
+		else
+			throw new ProductNotFoundException("Product not found!!");
 	}
 
-	public Product deleteCategory(Long id) {
+	public Product deleteProductById(Long id) {
 		Product theProduct = null;
 		Optional<Product> optCategory = productRepository.findById(id);
 		if (optCategory.isPresent()) {
 			theProduct = optCategory.get();
-
 			productRepository.delete(theProduct);
+			return theProduct;
 		}
-	
-		return theProduct;
+		else
+			throw new ProductNotFoundException("Product not found!!");
 	}
 }

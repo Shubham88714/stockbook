@@ -27,52 +27,40 @@ public class ProductResource {
 
 	@Autowired
 	ProductService productService;
-	
-	//save product --
+
+	// save product --done
 	@PostMapping("/product")
 	public ResponseEntity<Product> saveProduct(@RequestBody Product product) throws URISyntaxException {
-		Product theProduct  = productService.saveProduct(product);
-			return  ResponseEntity.created(new URI("/api/product/"+theProduct.getId())).body(theProduct);
+		Product theProduct = productService.saveProduct(product);
+		return ResponseEntity.created(new URI("/api/product/" + theProduct.getId())).body(theProduct);
 	}
 
+	// get product by id --done
 	@GetMapping("/product/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id)
-	{
-		
+	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+
 		Product theProduct = productService.getProductById(id);
-		if(theProduct!=null)
-			return new ResponseEntity<Product>(theProduct,HttpStatus.OK);
-		else
-			return new ResponseEntity<Product>(theProduct,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Product>(theProduct, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/products")
 	@ResponseBody
-	public ResponseEntity<List<Product>> getAllProduct()
-	{
+	public ResponseEntity<List<Product>> getAllProduct() {
 		List<Product> products = productService.getAllProducts();
-		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
-	}
-	
-	@PutMapping("/product/{id}")
-	public ResponseEntity<Product> updateCategory(@PathVariable("id") Long id,@RequestBody Product product)
-	{
-		Product theProduct = productService.updateProductById(id,product);
-		if(theProduct!=null)
-			return new ResponseEntity<Product>(theProduct,HttpStatus.OK);
-		else
-			return new ResponseEntity<Product>(theProduct,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/product/{id}") 
-	public ResponseEntity<Product> deleteCategory(@PathVariable("id") Long id)
-	{
-		Product theProduct = productService.deleteCategory(id);
-		if(theProduct!=null)
-			return new ResponseEntity<Product>(theProduct,HttpStatus.NO_CONTENT);
-		else
-			return new ResponseEntity<Product>(theProduct,HttpStatus.BAD_REQUEST);
+	// update product also can update category --done
+	@PutMapping("/product/{id}")
+	public ResponseEntity<Product> updateCategory(@PathVariable("id") Long id, @RequestBody Product product) {
+		Product theProduct = productService.updateProductById(id, product);
+		return new ResponseEntity<Product>(theProduct, HttpStatus.OK);
+	}
+
+	//delete product --done
+	@DeleteMapping("/product/{id}")
+	public ResponseEntity<Product> deleteProductById(@PathVariable("id") Long id) {
+		Product theProduct = productService.deleteProductById(id);
+			return new ResponseEntity<Product>(theProduct, HttpStatus.OK);
 	}
 }
-
-

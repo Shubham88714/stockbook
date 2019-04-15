@@ -1,4 +1,4 @@
-package com.virtusa.it.stockbookproductservice.category;
+package com.virtusa.it.stockbookproductservice;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,8 +30,6 @@ import com.virtusa.stockbookproductservice.repository.IStockRepository;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBootTest(classes = { StockBookProductServiceApplication.class })
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-
 public class StockIntegrationTest  {
 
 	@Autowired
