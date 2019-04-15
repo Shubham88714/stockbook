@@ -26,55 +26,40 @@ public class CategoryResource {
 
 	@Autowired
 	CategoryService categoryService;
-	
-	//save 
+
+	// save --done
 	@PostMapping("/category")
-	public ResponseEntity<Category> saveCategory(@RequestBody  Category category) throws URISyntaxException
-	{
+	public ResponseEntity<Category> saveCategory(@RequestBody Category category) throws URISyntaxException {
 		Category theCategory = categoryService.saveCategory(category);
-		
-			return ResponseEntity.created(new URI("/api/category/"+theCategory.getId())).body(theCategory)
-					;
+
+		return ResponseEntity.created(new URI("/api/category/" + theCategory.getId())).body(theCategory);
 	}
-	
-	//get by id
+
+	// get by id --done
 	@GetMapping("/category/{id}")
-	public ResponseEntity<Category> getCategoryById(@PathVariable("id") Long id)
-	{
-		return new ResponseEntity<Category>(categoryService.getCategoryById(id),HttpStatus.OK);	
+	public ResponseEntity<Category> getCategoryById(@PathVariable("id") Long id) {
+		return new ResponseEntity<Category>(categoryService.getCategoryById(id), HttpStatus.OK);
 	}
-	
-	
-	//delete
-	@DeleteMapping("/category/{id}") 
-	@ResponseBody
-	public ResponseEntity<Category> deleteCategory(@PathVariable("id") Long id)
-	{
-		Category theCategory = categoryService.deleteCategory(id);
-		if(theCategory!=null)
-			return new ResponseEntity<Category>(theCategory,HttpStatus.NO_CONTENT);
-		else
-			return new ResponseEntity<Category>(theCategory,HttpStatus.BAD_REQUEST);
-	}
-	
-	//get list of category
+
+	// get list of category --done
 	@GetMapping("/categories")
-	public ResponseEntity<List<Category>> getAllCategories()
-	{
+	public ResponseEntity<List<Category>> getAllCategories() {
 		List<Category> categories = categoryService.getAllCategories();
-		return new ResponseEntity<List<Category>>(categories,HttpStatus.OK);
+		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
 	}
-	
-	
-	//update category
+
+	// update category --done
 	@PutMapping("/category/{id}")
-	public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id,@RequestBody Category category)
-	{
-		Category theCategory = categoryService.updateCategoryById(id,category);
-		
-		return new ResponseEntity<Category>(theCategory,HttpStatus.OK);
+	public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody Category category) {
+		Category theCategory = categoryService.updateCategoryById(id, category);
+		return new ResponseEntity<Category>(theCategory, HttpStatus.OK);
 	}
-	
-	
-	
+
+	// delete
+	@DeleteMapping("/category/{id}")
+	public ResponseEntity<Category> deleteCategory(@PathVariable("id") Long id) {
+		Category theCategory = categoryService.deleteCategoryById(id);
+		return new ResponseEntity<Category>(theCategory, HttpStatus.OK);
+	}
+
 }

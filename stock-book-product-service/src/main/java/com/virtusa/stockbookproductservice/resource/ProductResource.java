@@ -28,15 +28,14 @@ public class ProductResource {
 	@Autowired
 	ProductService productService;
 	
+	//save product --
 	@PostMapping("/product")
 	public ResponseEntity<Product> saveProduct(@RequestBody Product product) throws URISyntaxException {
 		Product theProduct  = productService.saveProduct(product);
-		
-			return  ResponseEntity.created(new URI("/api/product/"+theProduct.getId())).build();
+			return  ResponseEntity.created(new URI("/api/product/"+theProduct.getId())).body(theProduct);
 	}
 
 	@GetMapping("/product/{id}")
-	
 	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id)
 	{
 		

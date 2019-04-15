@@ -26,7 +26,6 @@ import com.virtusa.stockbookproductservice.domain.Product;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBootTest(classes = { StockBookProductServiceApplication.class })
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductIntegrationTest {
 	@Autowired

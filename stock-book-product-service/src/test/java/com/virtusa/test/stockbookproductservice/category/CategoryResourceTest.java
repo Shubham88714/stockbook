@@ -75,7 +75,7 @@ public class CategoryResourceTest {
 
 		Category category = new Category(101L, "furniture");
 
-		Mockito.when(categoryService.deleteCategory(anyLong())).thenReturn(category);
+		Mockito.when(categoryService.deleteCategoryById(anyLong())).thenReturn(category);
 		categoryResource.deleteCategory(101L);
 	}
 	

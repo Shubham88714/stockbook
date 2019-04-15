@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.virtusa.stockbookproductservice.domain.Category;
 import com.virtusa.stockbookproductservice.domain.Product;
+import com.virtusa.stockbookproductservice.exception.ProductNameAlreadyExistException;
 import com.virtusa.stockbookproductservice.repository.ICategoryRepository;
 import com.virtusa.stockbookproductservice.repository.IProductRepository;
 
@@ -23,20 +24,27 @@ public class ProductService {
 
 	// save the product
 	public Product saveProduct(Product product) {
-		/*
-		 * Category theCategory = null; Product theProduct = null;
-		 * 
-		 * 
-		 * Optional<Category> optCategory =
-		 * categoryRespositoty.findById(product.getCategory().getId());
-		 * 
-		 * if (optCategory.isPresent()) { theCategory = optCategory.get();
-		 * theCategory.add(product); theProduct = productRepository.save(product); }
-		 * 
-		 * return theProduct;
-		 * 
-		 */
-		return productRepository.save(product);
+		
+		
+		Category theCategory = null;
+		Product theProduct = null;
+
+		
+		Optional<Category> optCategory = categoryRespositoty.findById(product.getCategory().getId());
+
+		if (optCategory.isPresent()) {
+			try {
+				theCategory = optCategory.get();
+				theCategory.add(product);
+				theProduct = productRepository.save(product);
+			} catch (Exception e) {
+				throw new ProductNameAlreadyExistException("Product name already exists!!");
+			}
+		}
+
+		return theProduct;
+		  
+	//	return productRepository.save(product);
 	}
 
 	// get product by id

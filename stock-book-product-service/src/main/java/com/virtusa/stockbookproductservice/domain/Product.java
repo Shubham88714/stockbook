@@ -41,15 +41,14 @@ public class Product {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "name")
+	@Column(name = "name",unique = true)
 	private String name;
 
 	@Column(name = "description")
 	private String description;
 
 	@ManyToOne(fetch=FetchType.EAGER,
-			cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
-					CascadeType.REFRESH})
+			cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name = "category_id")
 	private Category category;
 	

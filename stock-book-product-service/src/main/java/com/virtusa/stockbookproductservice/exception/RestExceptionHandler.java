@@ -48,4 +48,16 @@ public class RestExceptionHandler {
 		error.setTimestamp(System.currentTimeMillis());
 		return new ResponseEntity<ErrorResponse>(error,HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> productNameAlreadyExistException(ProductNameAlreadyExistException e)
+	{
+		ErrorResponse error = new ErrorResponse();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage(e.getMessage());
+		error.setTimestamp(System.currentTimeMillis());
+		return new ResponseEntity<ErrorResponse>(error,HttpStatus.BAD_REQUEST);
+		
+	}
+	
 }

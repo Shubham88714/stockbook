@@ -30,7 +30,8 @@ public class StockResource {
 	@Autowired
 	private StockService stockService;
 	
-	@PostMapping("/stock") //done 
+	//save stock --done
+	@PostMapping("/stock") 
 	public ResponseEntity<Stock> saveStock(@RequestBody Stock stock) throws URISyntaxException
 	{
 		logger.debug(">>>>entered to post method save stock");
@@ -40,23 +41,22 @@ public class StockResource {
 		return ResponseEntity.created(new URI("/api/stock/"+theStock.getId())).build();
 	}
 	
-	
-		
-	//get stock by product id
+	//get stock by product id --done
 	@GetMapping("/stock/product/{id}")
 	public ResponseEntity<List<Stock>> getStockByProductId(@PathVariable("id") Long id)
 	{
 		return ResponseEntity.ok().body(stockService.getStockListByProductId(id));
 	}
 	
-	//get stock by id
+	//get stock by id --done
 	@GetMapping("/stock/{id}")
 	public ResponseEntity<Stock> getStockById(@PathVariable("id") Long id)
 	{
 		return ResponseEntity.ok().body(stockService.getStockById(id));
 	}
 	
-	@PutMapping("/stock/{id}")
+	//update stock --done
+	@PutMapping("/stock/{id}") 
 	public ResponseEntity<Stock> updateStockByProductId(@RequestBody Stock stock)
 	{
 		return ResponseEntity.ok().body(stockService.updateStockByStockId(stock));				

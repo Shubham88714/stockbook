@@ -19,7 +19,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.virtusa.it.stockbookproductservice.testdata.InitialTestDataH2;
 import com.virtusa.stockbookproductservice.StockBookProductServiceApplication;
 import com.virtusa.stockbookproductservice.domain.Category;
 import com.virtusa.stockbookproductservice.domain.Product;
@@ -33,7 +32,7 @@ import com.virtusa.stockbookproductservice.repository.IStockRepository;
 @SpringBootTest(classes = { StockBookProductServiceApplication.class })
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
-public class StockIntegrationTest extends InitialTestDataH2 {
+public class StockIntegrationTest  {
 
 	@Autowired
 	WebApplicationContext wac;

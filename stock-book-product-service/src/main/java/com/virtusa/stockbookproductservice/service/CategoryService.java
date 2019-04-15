@@ -1,5 +1,6 @@
 package com.virtusa.stockbookproductservice.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,32 +17,13 @@ import com.virtusa.stockbookproductservice.repository.ICategoryRepository;
 @Service
 public class CategoryService {
 
-	
-	
 	@Autowired
 	ICategoryRepository categoryRepository;
 
-	// save
+	// save --done
+	@Transactional
 	public Category saveCategory(Category category) {
 		return categoryRepository.save(category);
-	}
-
-	// delete by id------------------try and catch 
-	public Category deleteCategory(Long id) {
-		Category theCategory = null;
-		Optional<Category> optCategory = categoryRepository.findById(id);
-		if (optCategory.isPresent()) {
-			theCategory = optCategory.get();
-		
-			try {
-				categoryRepository.delete(theCategory);
-			} catch (Exception e) {
-				
-					throw new CategoryDeleteNotValidException("you have to first delete the products of this category");
-			}
-		}
-	
-		return theCategory;
 	}
 
 	/*
@@ -64,19 +46,20 @@ public class CategoryService {
 		return categories;
 	}
 
-	// get list by id
+	// get list by id --done
+	@Transactional
 	public Category getCategoryById(Long id) {
 		Optional<Category> optCategory = categoryRepository.findById(id);
-		
+
 		if (optCategory.isPresent()) {
 			return optCategory.get();
-		}
-		else
+		} else
 			throw new CategoryNotFoundException("category not found!!");
 	}
 
-	//update
-	public Category updateCategoryById(Long id,Category category) {
+	// update --done
+	@Transactional
+	public Category updateCategoryById(Long id, Category category) {
 		Category theCategory = null;
 		Optional<Category> optCategory = categoryRepository.findById(id);
 
@@ -84,8 +67,28 @@ public class CategoryService {
 			theCategory = optCategory.get();
 			theCategory.setName(category.getName());
 			return categoryRepository.save(theCategory);
-		}
-		else 
+		} else
 			throw new CategoryNotFoundException("category not found!!");
 	}
+
+	// delete by id
+	@Transactional
+	public Category deleteCategoryById(Long id) {
+		Category theCategory = null;
+		Optional<Category> optCategory = categoryRepository.findById(id);
+		if (optCategory.isPresent()) {
+			try {
+				theCategory = optCategory.get();
+				categoryRepository.delete(theCategory);
+				System.out.println("i m try block");
+			} catch (Exception e) {
+				System.out.println("catch block====================");
+			}
+			
+		} else
+			throw new CategoryNotFoundException("category not found!!");
+		
+		return theCategory;
+	}
+
 }
