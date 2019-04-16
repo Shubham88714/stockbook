@@ -26,6 +26,7 @@ public class ProductService {
 	ICategoryRepository categoryRespositoty;
 
 	// save the product --done 
+	@Transactional
 	public Product saveProduct(Product product) {
 		
 		
@@ -51,6 +52,7 @@ public class ProductService {
 	}
 
 	// get product by id --done
+	@Transactional
 	public Product getProductById(Long id) {
 		Optional<Product> optProduct = productRepository.findById(id);
 		if (optProduct.isPresent()) {
@@ -87,6 +89,7 @@ public class ProductService {
 			throw new ProductNotFoundException("Product not found!!");
 	}
 
+	@Transactional
 	public Product deleteProductById(Long id) {
 		Product theProduct = null;
 		Optional<Product> optCategory = productRepository.findById(id);

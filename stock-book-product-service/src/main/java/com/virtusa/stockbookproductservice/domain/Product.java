@@ -48,14 +48,13 @@ public class Product {
 	private String description;
 
 	@ManyToOne(fetch=FetchType.EAGER,
-			cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+			cascade= {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
 	
 	@OneToMany(fetch= FetchType.EAGER,
-			cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REMOVE,
-					CascadeType.REFRESH})
+			cascade= {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.REFRESH})
 	@JoinColumn(name="product_id")
 	private List<Stock> stockList;
 	

@@ -93,10 +93,12 @@ public class ProductIntegrationTest {
 		Category category2 = new Category("category2");
 		Category theCategory = categoryRepository.save(category2);
 		Product product2 = new Product("name2", "description2", theCategory);
-		productRepository.save(product2);
+		System.out.println(theCategory);
+		System.out.println(product2);
+		productRepository.save(product2);//error
 
 		Product product3 = new Product("name2", "description3", new Category());
-
+System.out.println("////////////>>>>>>>>"+product3);
 		product3.getCategory().setId(theCategory.getId());
 
 		String saveResponse = mockMvc
